@@ -1,0 +1,9 @@
+
+- following/not following screen 
+- already have profile button showing user 2 = following 
+- already have profile button showing with follow/unfollow button 
+- add functions to follow/unfollow users in actions.js
+- go back to home, see that you've now got posts from user 3 
+- change 'list' to a better format, e.g. avatar, title, written by XXX
+- change home screen to have better welcome message e.g. 'Demo for Firebase'
+- button, go to demo 
