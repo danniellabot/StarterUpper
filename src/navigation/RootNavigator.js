@@ -6,6 +6,7 @@ import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
 import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
 import BottomTabStack from './BottomTabStack';
+import DrawerStack from './DrawerStack';
 
 export default function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);

@@ -31,6 +31,7 @@
     "react-native-reanimated": "~2.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-tab-view": "^3.1.1",
+    "react-native-vector-icons": "^9.0.0",
     "react-native-web": "^0.17.1",
     "react-nice-avatar": "^1.2.4",
     "react-redux": "^7.2.4",

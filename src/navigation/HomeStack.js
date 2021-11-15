@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Button, StyleSheet, View } from 'react-native';
 import { Icon, Badge, Avatar } from 'react-native-elements';
 import HomeScreen from '../general/HomeScreen';
+import { DrawerActions } from '@react-navigation/routers';
 
 
 const Stack = createStackNavigator();

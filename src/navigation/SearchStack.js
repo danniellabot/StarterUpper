@@ -1,8 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import BottomTabStack from './BottomTabStack';
 import { Button, StyleSheet, View } from 'react-native';
-import { Icon, Badge, Avatar } from 'react-native-elements';
 import SearchScreen from '../general/SearchScreen';
 
 const Stack = createStackNavigator();
@@ -12,9 +10,10 @@ export default function SearchStack({ navigation }) {
   return (
     <Stack.Navigator
       screenOptions={{
-        // headerStyle: {
-        //   backgroundColor: 'pink',
-        // },
+        headerStyle: {
+          backgroundColor: 'pink',
+        },
+        headerTitle: 'Search',
         headerTintColor: 'black',
         headerTitleStyle: {
           fontFamily: `${Platform.OS === 'ios' ? 'HelveticaNeue' : 'Roboto'}`,
