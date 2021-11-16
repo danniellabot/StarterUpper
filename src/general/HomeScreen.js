@@ -33,18 +33,18 @@ export default function HomeScreen({ navigation }) {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'first', title: 'First' },
-        { key: 'second', title: 'Second' },
+        { key: 'first', title: 'Open' },
+        { key: 'second', title: 'Complete' },
     ]);
 
     const renderScene = ({ route }) => {
 
         switch (route.key) {
           case 'first':
-              return <OpenHome />;
+              return <OpenHome tab='openCategory'/>;
             // return <HomeComponent user={user}/>;
             case 'second':
-                return <SecondRoute />;
+                return <OpenHome tab='closeCategory'/>;
           default:
             return null;
         }
