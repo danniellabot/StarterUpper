@@ -19,19 +19,19 @@ const openedList = [
                 name: 'Chicken',
                 quantity: '1',
                 price: '£2.50',
-                assignedTo: []
+                assignedTo: [{uid: '123', name: 'Richard'}] 
             },
             {
                 name: 'Beef',
                 quantity: '3',
                 price: '£7.50',
-                assignedTo: []
+                assignedTo: [{uid: '123', name: 'Richard'}, {uid: '456', name: 'John'}, {uid: '789', name: 'Jane'}]
             },
             {
                 name: 'Tofu',
                 quantity: '1',
                 price: '£2.50',
-                assignedTo: []
+                assignedTo: [{uid: '456', name: 'John'}]
             },
             {
                 name: 'Fish',

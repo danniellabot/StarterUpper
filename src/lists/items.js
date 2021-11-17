@@ -90,7 +90,7 @@ export default function ItemsList(props) {
     // }, [tab])
 
     const { merchantName, avatar_url, createdAt, createdBy, total, items } = list
-    //console.log('THIS THE PROPS LIST', list)
+    console.log('THIS THE PROPS LIST', items[1].assignedTo)
 
     // {
     //     name: 'Chicken',
@@ -126,7 +126,20 @@ export default function ItemsList(props) {
                                 <ListItem.Title>{l.name}</ListItem.Title>
                                 <ListItem.Subtitle style={styles.topRightContainer}>{l.price}</ListItem.Subtitle>
                                 <ListItem.Subtitle style={styles.bottomRightContainer}>{l.quantity}</ListItem.Subtitle>
-                                
+                                {/* {
+                                    l.assignedTo.length > 0 ?
+                                        <ListItem.Subtitle style={styles.bottomRightContainer}>
+                                            {l.assignedTo.map((a, i) => (
+                                                <Text key={i} style={styles.assignedToText}>{a}</Text>
+                                            ))}
+                                        </ListItem.Subtitle>
+                                    :
+                                        <ListItem.Subtitle style={styles.bottomRightContainer}>
+                                            <Text style={styles.assignedToText}>Unassigned</Text>
+                                        </ListItem.Subtitle>
+
+                
+                                } */}
                             </ListItem.Content>
                         </ListItem>
                     ))
@@ -166,6 +179,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
+
     listItem: {
         marginTop: 10,
         marginBottom: 10,
@@ -198,6 +212,11 @@ const styles = StyleSheet.create({
       },
         bottomLeftContainer: {
             fontSize: 13,
+    },
+    assignedToText: {
+        fontSize: 13,
+        color: '#000',
+        marginRight: 5,
     },
 
 });

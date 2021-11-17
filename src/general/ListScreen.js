@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tabbar: {
-    // backgroundColor: '#fff',
+    backgroundColor: '#337AFF',
     // if active tab, icon color is white
     // if inactive tab, icon color is black
    
