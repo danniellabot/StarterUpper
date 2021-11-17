@@ -5,27 +5,8 @@ import OpenHome from '../lists/openHome';
 
 import { TabView } from 'react-native-tab-view';
 
-const SecondRoute = () => (
-    <View style={[styles.scene, { backgroundColor: '#673ab7' }]}>
-        <Text>Hey!</Text>
-    </View>
-);
 
 const initialLayout = { width: Dimensions.get('window').width };
-
-
-// function HomeComponent(props) {
- 
-//     const { user } = props
-//     return (
-//       <View style={styles.page}>
-//        <Text>Home</Text>
-//        <Text style={styles.text}>You are logged in as {user.displayName} </Text>
-//       </View>
-//     );
-//   }
-  
-// React.memo(HomeComponent);
 
 export default function HomeScreen({ navigation }) {
 
@@ -37,21 +18,35 @@ export default function HomeScreen({ navigation }) {
         { key: 'second', title: 'Complete' },
     ]);
 
-    const renderScene = ({ route }) => {
+    const renderScene = ({route}) => {
+
+       // const { route } = props;
 
         switch (route.key) {
           case 'first':
-              return <OpenHome tab='openCategory'/>;
+            return <OpenHome tab='openCategory' navigation={navigation}/>;
+           // return <SecondRoute />;
             // return <HomeComponent user={user}/>;
             case 'second':
-                return <OpenHome tab='closeCategory'/>;
+                return <OpenHome tab='closeCategory' navigation={navigation}/>;
           default:
             return null;
         }
       };
 
+    //   const SecondRoute = () => (
+    //     <View style={[styles.scene, { backgroundColor: '#673ab7' }]}>
+    //         <Text>Hey!</Text>
+    //         <Button
+    //             title="Go to List"
+    //             onPress={() => navigation.navigate('ListScreen')}
+    //         />
+    //     </View>
+    // );
+
     
     return (
+      
             <TabView
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
@@ -59,6 +54,8 @@ export default function HomeScreen({ navigation }) {
                 initialLayout={initialLayout}
                 style={styles.container}
             />
+      
+        
      
     );
 }

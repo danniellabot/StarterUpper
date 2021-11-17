@@ -1,32 +1,57 @@
 import * as React from 'react';
 import { View, StyleSheet, Dimensions, StatusBar, Text } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { Icon } from 'react-native-elements';
+import ItemsList from '../lists/items';
 
-const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
-);
 
 const SecondRoute = () => (
   <View style={[styles.scene, { backgroundColor: '#673ab7' }]}>
-   <Text>Hey!</Text>
+   <Text>Hey Second Route!</Text>
+  </View>
+);
+
+const ThirdRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#673ab7' }]}>
+   <Text>Howdy Third Route!</Text>
   </View>
 );
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-});
 
-export default function ListScreen() {
- 
+export default function ListScreen({route, navigation}) {
+  
+  console.log('ROUTE PARAMS', route.params)
   
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'first', title: 'First' },
-    { key: 'second', title: 'Second' },
+    { key: 'first', title: 'Items', icon:'file-text' },
+    { key: 'second', title: 'Image', icon: 'image' },
+    { key: 'third', title: 'Users', icon:'users' },
   ]);
+
+  const { list } = route.params;
+
+  const renderScene = ({route}) => {
+
+     switch (route.key) {
+       case 'first':
+         return <ItemsList list={list} navigation={navigation} />;
+         case 'second':
+             return <SecondRoute />;
+        case 'third':
+              return <ThirdRoute />;
+       default:
+         return null;
+     }
+   };
+
+  const  _renderIcon = ({ route, focused }) => {
+    let iconColor = focused ? "#fff": "#D3D3D3"
+
+    return <Icon name={route.icon} size={24} type="feather" color={iconColor}/>;
+  };
 
   return (
     <TabView
@@ -35,6 +60,15 @@ export default function ListScreen() {
       onIndexChange={setIndex}
       initialLayout={initialLayout}
       style={styles.container}
+      renderTabBar={props =>
+        <TabBar
+          {...props}
+          indicatorStyle={styles.indicator}
+          renderIcon={_renderIcon}
+          style={styles.tabbar}
+          renderLabel={() => null}
+          />
+      }
     />
   );
 }
@@ -45,5 +79,15 @@ const styles = StyleSheet.create({
   },
   scene: {
     flex: 1,
+  },
+  tabbar: {
+    // backgroundColor: '#fff',
+    // if active tab, icon color is white
+    // if inactive tab, icon color is black
+   
+
+  },
+  indicator: {
+    // backgroundColor: '#ff4081',
   },
 });

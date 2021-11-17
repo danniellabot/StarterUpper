@@ -77,41 +77,61 @@ const closedList = [
 ]
 
 
-export default function OpenHome(props) {
+export default function ItemsList(props) {
 
     const { user } = useContext(AuthenticatedUserContext);
-    const { tab, navigation } = props
+   const { list , navigation } = props
     //console.log(props)
-    const [list, setList] = useState(openedList)
+    
 
-    useEffect(() => {
-        setList(tab === 'openCategory' ? openedList : closedList)
-        console.log('OUR NEW TAB IS', tab)
-    }, [tab])
+    // useEffect(() => {
+    //     setList(tab === 'openCategory' ? openedList : closedList)
+    //     console.log('OUR NEW TAB IS', tab)
+    // }, [tab])
+
+    const { merchantName, avatar_url, createdAt, createdBy, total, items } = list
+    //console.log('THIS THE PROPS LIST', list)
+
+    // {
+    //     name: 'Chicken',
+    //     quantity: '1',
+    //     price: '£2.50',
+    //     assignedTo: []
+    // },
     
     return (
         <View style={styles.container}>
             {/* <StatusBar barStyle="dark-content" /> */}
+            <View style={styles.header}>
+                <View style={styles.headerLeft}>
+                    <Text style={styles.headerText}>{merchantName}</Text>
+                </View>
+                <View style={styles.headerRight}>
+                    <Text style={styles.headerText}>{total}</Text>
+                </View>
+            </View>
+
             <ScrollView>
-                {
-                    list.map((l, i) => (
+                {items ? 
+                    items.map((l, i) => (
                         <ListItem
                             key={i}
                             bottomDivider
                             // onPress navigation to ListScreen
-                            onPress={() => navigation.navigate('ListScreen', { list: l })}
+                            onPress={console.log('list item pressed')}
                             style={styles.listItem}
                         >
-                            <Avatar source={{ uri: l.avatar_url }} rounded size={40}/>
+                            {/* <Avatar source={{ uri: l.avatar_url }} rounded size={40}/> */}
                             <ListItem.Content>
-                                <ListItem.Title>{l.merchantName}</ListItem.Title>
-                                <ListItem.Subtitle style={styles.topRightContainer}>{l.total}</ListItem.Subtitle>
-                                <ListItem.Subtitle style={styles.bottomRightContainer}>{l.createdAt}</ListItem.Subtitle>
-                                <ListItem.Subtitle style={styles.bottomLeftContainer}>by {l.createdBy}</ListItem.Subtitle>
+                                <ListItem.Title>{l.name}</ListItem.Title>
+                                <ListItem.Subtitle style={styles.topRightContainer}>{l.price}</ListItem.Subtitle>
+                                <ListItem.Subtitle style={styles.bottomRightContainer}>{l.quantity}</ListItem.Subtitle>
+                                
                             </ListItem.Content>
                         </ListItem>
                     ))
-                }
+                : null}
+                
             </ScrollView>
         </View>
     );
@@ -129,6 +149,22 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#000',
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+    },
+    headerLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    headerRight: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     listItem: {
         marginTop: 10,
@@ -162,6 +198,6 @@ const styles = StyleSheet.create({
       },
         bottomLeftContainer: {
             fontSize: 13,
-        },
+    },
 
 });

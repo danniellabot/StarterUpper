@@ -3,8 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon, Badge, Avatar } from 'react-native-elements';
 import HomeStack from './HomeStack';
-import ListStack from './ListStack';
+// import ListStack from './ListStack';
 import SearchStack from './SearchStack';
+import CreateStack from './CreateStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +33,7 @@ export default function BottomTabStack() {
           ),
         }}
       />
-      <Tab.Screen name="List" component={ListStack}
+      <Tab.Screen name="Create" component={CreateStack}
         options={{
           tabBarLabel: 'Create',
           tabBarIcon: ({ color }) => (

@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Button, StyleSheet, View } from 'react-native';
 import { Icon, Badge, Avatar } from 'react-native-elements';
 import HomeScreen from '../general/HomeScreen';
+import ListScreen from '../general/ListScreen';
 import { DrawerActions } from '@react-navigation/routers';
 
 
@@ -45,11 +46,36 @@ export default function HomeStack({ navigation }) {
               type='feather'
               color='black'
               size={20}
-              onPress={() => navigation.navigate('List')}
+              onPress={() => console.log('Friends screen here I come')}
             />
           ),
         })}
-      
+      />
+        <Stack.Screen name='ListScreen' component={ListScreen}
+          options={({ navigation, route }) => ({
+           headerTitle:'Item',
+            headerLeft: () => (
+              <Icon
+                style={styles.iconLeft}
+                name='arrow-left'
+                type='feather'
+                color='black'
+                size={20}
+                onPress={() => navigation.goBack()}
+                />
+            ),
+            // headerRight: () => (
+            //   <Icon
+            //     style={styles.iconRight}
+            //     name='users'
+            //     type='feather'
+            //     color='black'
+            //     size={20}
+            //     onPress={() => navigation.navigate('Search')}
+            //     />
+            // ),
+          })}
+
       />
     </Stack.Navigator>
   );
