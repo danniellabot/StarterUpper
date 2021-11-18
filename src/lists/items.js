@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ListItem, Avatar } from 'react-native-elements';
+import { ListItem, Avatar, Card } from 'react-native-elements';
 import { Text, View, Button, StyleSheet, Dimensions, StatusBar, ScrollView } from 'react-native';
 import { genConfig } from 'react-nice-avatar'
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
@@ -87,29 +87,53 @@ export default function ItemsList(props) {
         return (
             // merchant name and merchant address center aligned
             <View>
+            <Card>
             <View style={styles.overviewSection}>
                 <Text style={styles.merchantName}>{merchantName}</Text>
                 <Text style={styles.merchantInformation}>{merchantAddress}</Text>
-                <Text style={styles.merchantInformation}>{merchantPhoneNumber}</Text>
             </View>
-            <View style={styles.detailsSection}>
-                <Text>{createdBy} {createdAt}</Text>
-                <Text>{total} | {subtotal} | {tax} </Text>
-                <Text>Your total is £10.00</Text>
+         <Card.Divider />
+         <ItemsSection />
+            </Card>
                 </View>
-            
-                </View>
-
         )
+    }
+
+    const ItemsSection = () => {
+        // first row subtotal 
+        // second row tax
+        // third row total
+        return (
+            <View>
+            <View style={styles.itemsSection}>
+                <View style={styles.itemsSectionRow}>
+                    <Text style={styles.itemsSectionRowText}>Subtotal</Text>
+                    <Text style={styles.itemsSectionRowText}>{subtotal}</Text>
+                </View>
+                <View style={styles.itemsSectionRow}>
+                    <Text style={styles.itemsSectionRowText}>Tax</Text>
+                    <Text style={styles.itemsSectionRowText}>{tax}</Text>
+                </View>
+                <View style={styles.itemsSectionRow}>
+                    <Text style={styles.itemsSectionRowText}>Total</Text>
+                    <Text style={styles.itemsSectionRowText}>{total}</Text>
+                </View>
+            </View>
+          
+          
+            </View>
+        )
+
     }
 
 
     return (
         <View style={styles.container}>
             <StatusBar barStyle="dark-content"/>
-           <OverviewSection />
+         
 
             <ScrollView>
+            <OverviewSection />
                 {items ?
                     items.map((l, i) => (
                         <ListItem
@@ -169,8 +193,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 10,
+     
     },
     merchantName: {
         fontSize: 18,
@@ -180,7 +203,28 @@ const styles = StyleSheet.create({
     merchantInformation: {
         fontSize: 12,
         color: '#828282',
+        marginBottom: 5,
     },
+    itemsSection: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      
+        marginTop: 2,
+    },
+    itemsSectionRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+       
+        marginTop: 2,
+
+    },
+    itemsSectionRowText: {
+        fontSize: 12,
+        color: '#828282',
+        marginBottom: 5,
+    },
+
+
 
     listItem: {
         marginTop: 10,
