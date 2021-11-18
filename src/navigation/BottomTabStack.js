@@ -6,6 +6,7 @@ import HomeStack from './HomeStack';
 // import ListStack from './ListStack';
 import SearchStack from './SearchStack';
 import CreateStack from './CreateStack';
+import FriendStack from './FriendStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,14 +34,6 @@ export default function BottomTabStack() {
           ),
         }}
       />
-      <Tab.Screen name="Create" component={CreateStack}
-        options={{
-          tabBarLabel: 'Create',
-          tabBarIcon: ({ color }) => (
-            <Icon name="file-plus" type="feather" color={color} size={26} />
-          ),
-        }}
-      />
       <Tab.Screen name="Search" component={SearchStack}
         options={{
           tabBarLabel: 'Search',
@@ -49,6 +42,23 @@ export default function BottomTabStack() {
           ),
         }}
       />
+            <Tab.Screen name="Friends" component={FriendStack}
+        options={{
+          tabBarLabel: 'Friends',
+          tabBarIcon: ({ color }) => (
+            <Icon name="users" type="feather" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen name="Create" component={CreateStack}
+        options={{
+          tabBarLabel: 'Create',
+          tabBarIcon: ({ color }) => (
+            <Icon name="file-plus" type="feather" color={color} size={26} />
+          ),
+        }}
+      />
+
     </Tab.Navigator>
   );
 }

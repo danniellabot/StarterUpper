@@ -10,6 +10,7 @@ import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvide
 const openedList = [
     {
         merchantName: 'Eat Tokyo',
+        merchantAddress: '123 Main St London EC2V 7AE',
         avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
         createdAt: '12-Nov',
         createdBy: 'Richard',
@@ -25,7 +26,39 @@ const openedList = [
                 name: 'Beef',
                 quantity: '3',
                 price: '£7.50',
-                assignedTo: [{uid: '123', name: 'Richard'}, {uid: '456', name: 'John'}, {uid: '789', name: 'Jane'}]
+                assignedTo: [{uid: '123', name: 'Richard'}, {uid: '456', name: 'John'}, {uid: '789', name: 'Jane'}, {
+                    uid: '101112',
+                    name: 'Jack'
+                }, {
+                    uid: '131415',
+                    name: 'Jill'
+                },
+                {
+                    uid: '161718',
+                    name: 'Joe'
+                },
+                {
+                    uid: '19202122',
+                    name: 'Jenny'
+                },
+                {
+                    uid: '23242526',
+                    name: 'Jenny'
+                },
+                {
+                    uid: '272829',
+                    name: 'Jenny'
+                },
+                {
+                    uid: '30313233',
+                    name: 'Jenny'
+                },
+                {
+                    uid: '343536',
+                    name: 'Jenny'
+                }
+
+            ]
             },
             {
                 name: 'Tofu',
@@ -91,7 +124,7 @@ export default function OpenHome(props) {
     
     return (
         <View style={styles.container}>
-            {/* <StatusBar barStyle="dark-content" /> */}
+            <StatusBar barStyle="dark-content" />
             <ScrollView>
                 {
                     list.map((l, i) => (
@@ -104,7 +137,7 @@ export default function OpenHome(props) {
                         >
                             <Avatar source={{ uri: l.avatar_url }} rounded size={40}/>
                             <ListItem.Content>
-                                <ListItem.Title>{l.merchantName}</ListItem.Title>
+                                <ListItem.Title style={styles.listItemTitle}>{l.merchantName}</ListItem.Title>
                                 <ListItem.Subtitle style={styles.topRightContainer}>{l.total}</ListItem.Subtitle>
                                 <ListItem.Subtitle style={styles.bottomRightContainer}>{l.createdAt}</ListItem.Subtitle>
                                 <ListItem.Subtitle style={styles.bottomLeftContainer}>by {l.createdBy}</ListItem.Subtitle>
@@ -146,12 +179,16 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
     },
+    listItemTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
     bottomRightContainer: {
         bottom: -1,
         opacity: 1,
         position: "absolute",
         alignSelf: "flex-end",
-        fontSize: 13,
+        fontSize: 12,
       },
       topRightContainer: {
         top: 0,
@@ -160,8 +197,8 @@ const styles = StyleSheet.create({
         alignSelf: "flex-end",
         justifyContent: "flex-end",
       },
-        bottomLeftContainer: {
-            fontSize: 13,
-        },
+    bottomLeftContainer: {
+            fontSize: 12,
+    },
 
 });
