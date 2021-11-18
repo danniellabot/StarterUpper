@@ -11,10 +11,14 @@ const openedList = [
     {
         merchantName: 'Eat Tokyo',
         merchantAddress: '123 Main St London EC2V 7AE',
+        merchantPhoneNumber: '+44 123 456 789',
         avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
         createdAt: '12-Nov',
         createdBy: 'Richard',
         total: '£27.30',
+        subtotal: '£27.30',
+        tax: '£0.00',
+        discount: '£0.00',
         items: [
             {
                 name: 'Chicken',

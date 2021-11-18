@@ -81,18 +81,25 @@ export default function ItemsList(props) {
     const { user } = useContext(AuthenticatedUserContext);
     const { list, navigation } = props
 
-    const { merchantName, avatar_url, createdAt, createdBy, total, items } = list
+    const { merchantName, avatar_url, createdAt, createdBy, total, items, merchantAddress, merchantPhoneNumber, subtotal, tax } = list
    
     const OverviewSection = () => {
         return (
-            <View style={styles.header}>
-            <View style={styles.headerLeft}>
-                <Text style={styles.headerText}>{merchantName}</Text>
+            // merchant name and merchant address center aligned
+            <View>
+            <View style={styles.overviewSection}>
+                <Text style={styles.merchantName}>{merchantName}</Text>
+                <Text style={styles.merchantInformation}>{merchantAddress}</Text>
+                <Text style={styles.merchantInformation}>{merchantPhoneNumber}</Text>
             </View>
-            <View style={styles.headerRight}>
-                <Text style={styles.headerText}>{total}</Text>
-            </View>
-        </View>
+            <View style={styles.detailsSection}>
+                <Text>{createdBy} {createdAt}</Text>
+                <Text>{total} | {subtotal} | {tax} </Text>
+                <Text>Your total is £10.00</Text>
+                </View>
+            
+                </View>
+
         )
     }
 
@@ -157,22 +164,24 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         // justifyContent: 'center',
     },
-    header: {
-        flexDirection: 'row',
+
+    overviewSection: {
+        flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: 10,
-        backgroundColor: '#fff',
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-    },
-    headerLeft: {
-        flexDirection: 'row',
         alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 10,
     },
-    headerRight: {
-        flexDirection: 'row',
-        alignItems: 'center',
+    merchantName: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 5,
     },
+    merchantInformation: {
+        fontSize: 12,
+        color: '#828282',
+    },
+
     listItem: {
         marginTop: 10,
         marginBottom: 10,

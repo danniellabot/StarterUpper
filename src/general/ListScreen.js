@@ -17,7 +17,7 @@ const ThirdRoute = () => (
   </View>
 );
 
-const initialLayout = { width: Dimensions.get('window').width };
+const initialLayout = { width: Dimensions.get('window').width, height: 100 };
 
 
 export default function ListScreen({route, navigation}) {
