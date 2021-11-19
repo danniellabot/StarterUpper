@@ -3,6 +3,8 @@ import { View, StyleSheet, Dimensions, StatusBar, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { Icon } from 'react-native-elements';
 import ItemsList from '../lists/items';
+import { ShowFriendReceipt } from '../lists/ItemFriend';
+import { ItemImage } from '../image/ItemImage';
 
 
 const SecondRoute = () => (
@@ -39,9 +41,9 @@ export default function ListScreen({route, navigation}) {
        case 'first':
          return <ItemsList list={list} navigation={navigation} />;
          case 'second':
-             return <SecondRoute />;
+             return <ItemImage />;
         case 'third':
-              return <ThirdRoute />;
+              return <ShowFriendReceipt />;
        default:
          return null;
      }

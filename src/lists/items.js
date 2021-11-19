@@ -85,21 +85,22 @@ export default function ItemsList(props) {
    
     const OverviewSection = () => {
         return (
-            // merchant name and merchant address center aligned
             <View>
             <Card>
             <View style={styles.overviewSection}>
                 <Text style={styles.merchantName}>{merchantName}</Text>
                 <Text style={styles.merchantInformation}>{merchantAddress}</Text>
+                <Text style={styles.merchantInformation}> by {createdBy} | {createdAt} </Text>
             </View>
+            
          <Card.Divider />
-         <ItemsSection />
+         <TotalSection />
             </Card>
                 </View>
         )
     }
 
-    const ItemsSection = () => {
+    const TotalSection = () => {
         // first row subtotal 
         // second row tax
         // third row total
@@ -118,9 +119,11 @@ export default function ItemsList(props) {
                     <Text style={styles.itemsSectionRowText}>Total</Text>
                     <Text style={styles.itemsSectionRowText}>{total}</Text>
                 </View>
+                <View style={styles.itemsSectionRow}>
+                    <Text style={styles.itemsSectionRowTextPersonal}>Your total</Text>
+                    <Text style={styles.itemsSectionRowTextPersonal}>£10.00</Text>
+                </View>
             </View>
-          
-          
             </View>
         )
 
@@ -130,8 +133,6 @@ export default function ItemsList(props) {
     return (
         <View style={styles.container}>
             <StatusBar barStyle="dark-content"/>
-         
-
             <ScrollView>
             <OverviewSection />
                 {items ?
@@ -193,37 +194,40 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginBottom: 10,
      
     },
     merchantName: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
-        marginBottom: 5,
+        marginBottom: 2,
     },
     merchantInformation: {
         fontSize: 12,
         color: '#828282',
-        marginBottom: 5,
+        marginBottom: 2,
     },
+
     itemsSection: {
         flexDirection: 'column',
         justifyContent: 'space-between',
-      
-        marginTop: 2,
+       
     },
     itemsSectionRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-       
-        marginTop: 2,
 
     },
     itemsSectionRowText: {
         fontSize: 12,
-        color: '#828282',
-        marginBottom: 5,
+        color: '#828282',  
     },
-
+    itemsSectionRowTextPersonal: {
+        marginTop: 10,
+        fontSize: 12,
+        color: '#828282',
+        fontWeight: 'bold',
+    },
 
 
     listItem: {
