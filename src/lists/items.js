@@ -104,7 +104,9 @@ export default function ItemsList(props) {
 
   const OverviewSection = () => {
     return (
-      <View>
+      <View style={{
+        marginBottom:10
+      }}>
         <Card>
           <View style={styles.overviewSection}>
             <Text style={styles.merchantName}>{merchantName}</Text>
