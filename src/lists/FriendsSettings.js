@@ -108,7 +108,7 @@ export default function FriendsSettings() {
         <Text style={styles.sectionTitle}>Summary</Text>
         <Divider style={{ marginVertical: 10 }} />
         <SummaryOverview />
-        <Text style={styles.sectionTitle}>Friends</Text>
+        <Text style={styles.sectionTitle}>Friends in this Item</Text>
         <Divider style={{ marginVertical: 10 }} />
         <ScrollView>
           {friendReceipt.map((l, i) => (

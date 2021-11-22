@@ -31,7 +31,7 @@ export default function ListScreen({route, navigation}) {
   const [routes] = React.useState([
     { key: 'first', title: 'Items', icon:'file-text' },
     { key: 'second', title: 'Image', icon: 'image' },
-    { key: 'third', title: 'Users', icon:'users' },
+    { key: 'third', title: 'Users', icon:'user' },
   ]);
 
   const { list } = route.params;
