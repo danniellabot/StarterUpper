@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
-  View,
+  ListItem,
+  Avatar,
+  SearchBar,
+  Card,
+  Divider,
+} from "react-native-elements";
+import {
   Text,
+  View,
+  Button,
   StyleSheet,
   Dimensions,
   StatusBar,
-  Button,
-  TextInput,
   ScrollView,
-  Keyboard,
-  KeyboardAvoidingView,
 } from "react-native";
-import {
-  SearchBar,
-  ListItem,
-  Avatar,
-  Divider,
-  Card,
-} from "react-native-elements";
-import { color } from "react-native-reanimated";
+
+import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 
 const friendList = [
   { uid: "123", name: "Richard" },
@@ -64,17 +62,7 @@ const friendReceipt = [
   { uid: "789", name: "Jane", amount: "30.00", status: "" },
 ];
 
-const { width, height } = Dimensions.get("window");
-
-export const ShowFriendReceipt = () => {
-  return (
-    <View style={styles.container}>
-      <SearchFriend />
-    </View>
-  );
-};
-
-const SearchFriend = () => {
+export default function FriendsSettings() {
   const [keywords, setKeywords] = React.useState("");
   const [suggestions, setSuggestions] = React.useState(friendList);
   const [showFriends, setShowFriends] = React.useState(true);
@@ -95,47 +83,46 @@ const SearchFriend = () => {
     return isFriend;
   };
 
-  const FriendListRender = () => {
+  const SummaryOverview = () => {
     return (
       <View>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            marginTop: 20,
-            marginLeft: 20,
-          }}
-        >
-          Summary
-        </Text>
-        <Card>
-          <Text>Total Amount: $30.00</Text>
-          <Divider />
-          <Text>Total Paid: $30.00</Text>
-        </Card>
+        <View style={styles.itemsSection}>
+          <View style={styles.itemsSectionRow}>
+            <Text style={styles.itemsSectionRowText}>
+              Total paid from friends
+            </Text>
+            <Text style={styles.itemsSectionRowText}>30</Text>
+          </View>
+          <View style={styles.itemsSectionRow}>
+            <Text style={styles.itemsSectionRowText}>Total</Text>
+            <Text style={styles.itemsSectionRowText}>30</Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
 
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            marginTop: 20,
-            marginLeft: 20,
-          }}
-        >
-          Friends
-        </Text>
+  const Summary = () => {
+    return (
+      <View>
+        <Text style={styles.sectionTitle}>Summary</Text>
+        <Divider style={{ marginVertical: 10 }} />
+        <SummaryOverview />
+        <Text style={styles.sectionTitle}>Friends</Text>
+        <Divider style={{ marginVertical: 10 }} />
         <ScrollView>
-          {friendReceipt.map((friend, i) => (
+          {friendReceipt.map((l, i) => (
             <ListItem
               key={i}
               bottomDivider
-              onPress={() => console.log(friend.uid)}
+              // onPress navigation to ListScreen
+              onPress={() => console.log("Hey")}
               style={styles.listItem}
-              containerStyle={friend.status === "Paid"
-              ? { backgroundColor: "#dff0d8" }
-              : { backgroundColor: "#f2dede" }
+              containerStyle={
+                l.status === "Paid"
+                  ? { backgroundColor: "#dff0d8" }
+                  : { backgroundColor: "#f2dede" }
               }
-              
             >
               <Avatar
                 source={{
@@ -145,13 +132,22 @@ const SearchFriend = () => {
                 size={40}
               />
               <ListItem.Content>
-                <ListItem.Title>{friend.name}</ListItem.Title>
-                <ListItem.Title style={styles.bottomLeftContainer}>
-                  {friend.amount}
+                <ListItem.Title style={styles.listItemTitle}>
+                  {l.name}
                 </ListItem.Title>
-                <ListItem.Title style={styles.topRightContainer}>
-                  {friend.status}
-                </ListItem.Title>
+                <ListItem.Subtitle
+                  style={[
+                    styles.topRightContainer,
+                    l.status === "Paid"
+                      ? { color: "#4caf50" }
+                      : { color: "#f44336" },
+                  ]}
+                >
+                  {l.status}
+                </ListItem.Subtitle>
+                <ListItem.Subtitle style={styles.bottomLeftContainer}>
+                  {l.amount}
+                </ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
           ))}
@@ -160,12 +156,19 @@ const SearchFriend = () => {
     );
   };
 
-  const SuggestionsRender = () => {
+  const Suggestions = () => {
     return (
       <ScrollView>
         {suggestions.map((friend, i) => (
           <ListItem key={i} bottomDivider onPress={() => console.log(friend)}>
-            <ListItem.Content style={styles.itemsSectionRow}>
+            <Avatar
+              source={{
+                uri: "https://randomuser.me/api/portraits/lego/1.jpg",
+              }}
+              rounded
+              size={40}
+            />
+            <ListItem.Content style={styles.suggestionSection}>
               <ListItem.Title>{friend.name}</ListItem.Title>
               <Button
                 title={`${isFriendReceipt(friend.uid) ? "Remove" : "Add"}`}
@@ -179,7 +182,8 @@ const SearchFriend = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       <SearchBar
         placeholder="Add friends"
         onFocus={() => setShowFriends(false)}
@@ -192,21 +196,46 @@ const SearchFriend = () => {
         value={keywords}
         platform={`${Platform.OS === "ios" ? "ios" : "android"}`}
       />
-      {showFriends ? <FriendListRender /> : <SuggestionsRender />}
+      {showFriends ? <Summary /> : <Suggestions />}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
+  suggestionSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  itemsSection: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  itemsSectionRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    marginLeft: 16,
+    marginRight: 16,
+  },
+  itemsSectionRowText: {
+    fontSize: 16,
+    color: "#828282",
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginLeft: 16,
+  },
   listItem: {
+    marginTop: 10,
+    marginBottom: 10,
     marginLeft: 10,
     marginRight: 10,
-    marginTop: 10,
-    alignSelf: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -225,15 +254,16 @@ const styles = StyleSheet.create({
     opacity: 1,
     position: "absolute",
     alignSelf: "flex-end",
+    fontSize: 12,
   },
   topRightContainer: {
-    top: 1,
+    top: 0,
+    opacity: 1,
     position: "absolute",
     alignSelf: "flex-end",
     justifyContent: "flex-end",
-    fontWeight: "bold",
   },
   bottomLeftContainer: {
-    fontSize: 14,
+    fontSize: 12,
   },
 });

@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 import ItemsList from '../lists/items';
 import { ShowFriendReceipt } from '../lists/ItemFriend';
 import { ItemImage } from '../image/ItemImage';
+import FriendsSettings from '../lists/FriendsSettings';
 
 
 const SecondRoute = () => (
@@ -43,7 +44,8 @@ export default function ListScreen({route, navigation}) {
          case 'second':
              return <ItemImage />;
         case 'third':
-              return <ShowFriendReceipt />;
+               //return <ShowFriendReceipt />;
+              return <FriendsSettings />;
        default:
          return null;
      }
