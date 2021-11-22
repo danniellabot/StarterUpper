@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,10 +8,17 @@ import {
   Button,
   TextInput,
   ScrollView,
-} from 'react-native';
-import { SearchBar, ListItem } from 'react-native-elements';
-
-
+  Keyboard,
+  KeyboardAvoidingView,
+} from "react-native";
+import {
+  SearchBar,
+  ListItem,
+  Avatar,
+  Divider,
+  Card,
+} from "react-native-elements";
+import { color } from "react-native-reanimated";
 
 const friendList = [
   { uid: "123", name: "Richard" },
@@ -52,117 +59,147 @@ const friendList = [
 ];
 
 const friendReceipt = [
-  { uid: "123", name: "Richard" },
-  { uid: "456", name: "John" },
-  { uid: "789", name: "Jane" },
+  { uid: "123", name: "Richard", amount: "30.00", status: "Paid" },
+  { uid: "456", name: "John", amount: "30.00", status: "Paid" },
+  { uid: "789", name: "Jane", amount: "30.00", status: "" },
 ];
 
-
-const { width, height } = Dimensions.get('window');
-
-// react native functional component
-// button aligns center title 'Search Friends'
-// onPress button, SearchBar is rendered
-// onClick SearchBar, suggestions are rendered
-// onChangeText SearchBar, suggestions are rendered
-// onSubmit Search Bar, console.log('uid')
-
-// below search bar is functional component
-// list of Friends List
+const { width, height } = Dimensions.get("window");
 
 export const ShowFriendReceipt = () => {
-
-  const [showSearchBar, setShowSearchBar] = React.useState(false);
-
-  const onPress = () => {
-    showSearchBar ? setShowSearchBar(false) : setShowSearchBar(true);
-  };
-
-
   return (
     <View>
-      <Button
-        title="Add friends"
-        onPress={onPress}
-      />
-      {showSearchBar ? <SearchFriend /> : null}
-      {friendReceipt.map((friend, i) => (
-        <ListItem
-          key={i}
-          bottomDivider
-          // onPress navigation to ListScreen
-          onPress={() => console.log(friend.uid)}
-        >
-          <ListItem.Content>
-            <ListItem.Title>{friend.name}</ListItem.Title>
-          </ListItem.Content>
-        </ListItem>
-      ))}
-
+      <SearchFriend />
     </View>
-
   );
-}
+};
 
 const SearchFriend = () => {
-  const [keywords, setKeywords] = React.useState('')
-  const [suggestions, setSuggestions] = React.useState(friendList)
+  const [keywords, setKeywords] = React.useState("");
+  const [suggestions, setSuggestions] = React.useState(friendList);
+  const [showFriends, setShowFriends] = React.useState(true);
 
   const onChangeText = (text) => {
-    setKeywords(text)
-    const suggestedFriends = friendList.filter(friend => friend.name.toLowerCase().includes(text.toLowerCase()))
-    setSuggestions(suggestedFriends)
-    console.log('suggestedFriends', suggestedFriends)
-  }
+    setKeywords(text);
+    const suggestedFriends = friendList.filter((friend) =>
+      friend.name.toLowerCase().includes(text.toLowerCase())
+    );
+    setSuggestions(suggestedFriends);
+    console.log("suggestedFriends", suggestedFriends);
+  };
 
-  // check if friendList uid is in friendReceipt
-  // if yes return true
-  // if no return false
   const isFriendReceipt = (uid) => {
-    let isFriend = false
-    const checkIsFriend = friendReceipt.find(friend => friend.uid === uid)
-    checkIsFriend ? isFriend = true : null
-    return isFriend
-  }
+    let isFriend = false;
+    const checkIsFriend = friendReceipt.find((friend) => friend.uid === uid);
+    checkIsFriend ? (isFriend = true) : null;
+    return isFriend;
+  };
 
+  const FriendListRender = () => {
+    return (
+      <View>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            marginTop: 20,
+            marginLeft: 20,
+          }}
+        >
+          Summary
+        </Text>
+        <Card>
+          <Text>Total Amount: $30.00</Text>
+          <Divider />
+          <Text>Total Paid: $30.00</Text>
+        </Card>
 
-  return (
-    <View>
-      <SearchBar
-        placeholder="Username"
-        // onChangeText={(val) => { setKeywords(val) }}
-        onChangeText={(val) => { onChangeText(val) }}
-        onSubmitEditing={() => console.log(`User typed ${keywords}`)}
-        value={keywords}
-        platform={`${Platform.OS === 'ios' ? 'ios' : 'android'}`}
-      />
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            marginTop: 20,
+            marginLeft: 20,
+          }}
+        >
+          Friends
+        </Text>
+        <ScrollView>
+          {friendReceipt.map((friend, i) => (
+            <ListItem
+              key={i}
+              bottomDivider
+              onPress={() => console.log(friend.uid)}
+              containerStyle={{
+                width: width - 30,
+                marginLeft: 10,
+                marginRight: 10,
+                marginTop: 10,
+                alignSelf: "center",
+                borderColor: friend.status === "Paid" ? "#00ff00" : "#ff0000",
+                borderWidth: 2,
+                borderBottomWidth: 2,
+              }}
+            >
+              <Avatar
+                source={{
+                  uri: "https://randomuser.me/api/portraits/lego/1.jpg",
+                }}
+                rounded
+                size={40}
+              />
+              <ListItem.Content>
+                <ListItem.Title>{friend.name}</ListItem.Title>
+                <ListItem.Title style={styles.bottomLeftContainer}>
+                  {friend.amount}
+                </ListItem.Title>
+                <ListItem.Title style={styles.topRightContainer}>
+                  {friend.status}
+                </ListItem.Title>
+              </ListItem.Content>
+            </ListItem>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  };
+
+  const SuggestionsRender = () => {
+    return (
       <ScrollView>
         {suggestions.map((friend, i) => (
-          <ListItem
-            key={i}
-            bottomDivider
-            //onPress navigation to ListScreen
-            onPress={() => console.log(friend)}
-          >
-            <ListItem.Content>
+          <ListItem key={i} bottomDivider onPress={() => console.log(friend)}>
+            <ListItem.Content style={styles.itemsSectionRow}>
               <ListItem.Title>{friend.name}</ListItem.Title>
               <Button
-                title={`${isFriendReceipt(friend.uid) ? 'Remove' : 'Add'}`}
+                title={`${isFriendReceipt(friend.uid) ? "Remove" : "Add"}`}
                 onPress={() => console.log(friend)}
               />
             </ListItem.Content>
           </ListItem>
         ))}
       </ScrollView>
+    );
+  };
+
+  return (
+    <View>
+      <SearchBar
+        placeholder="Add friends"
+        onFocus={() => setShowFriends(false)}
+        onBlur={() => setShowFriends(true)}
+        blurOnSubmit
+        onChangeText={(val) => {
+          onChangeText(val);
+        }}
+        onSubmitEditing={() => console.log(`User typed ${keywords}`)}
+        value={keywords}
+        platform={`${Platform.OS === "ios" ? "ios" : "android"}`}
+      />
+      {showFriends ? <FriendListRender /> : <SuggestionsRender />}
     </View>
-
-  )
-
-
-
-
-}
-
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -173,5 +210,27 @@ const styles = StyleSheet.create({
     width: width,
     marginTop: 20,
   },
+  listItemTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 
+  bottomRightContainer: {
+    bottom: -1,
+    opacity: 1,
+    position: "absolute",
+    alignSelf: "flex-end",
+    fontSize: 16,
+  },
+  topRightContainer: {
+    top: 1,
+    position: "absolute",
+    alignSelf: "flex-end",
+    justifyContent: "flex-end",
+    color: "#00ff00",
+    fontWeight: "bold",
+  },
+  bottomLeftContainer: {
+    fontSize: 14,
+  },
 });
