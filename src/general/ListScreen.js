@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions, StatusBar, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { Icon } from 'react-native-elements';
 import ItemsList from '../lists/items';
-import { ShowFriendReceipt } from '../lists/ItemFriend';
+
 import { ItemImage } from '../image/ItemImage';
 import FriendsSettings from '../lists/FriendsSettings';
 
@@ -31,7 +31,7 @@ export default function ListScreen({route, navigation}) {
   const [routes] = React.useState([
     { key: 'first', title: 'Items', icon:'file-text' },
     { key: 'second', title: 'Image', icon: 'image' },
-    { key: 'third', title: 'Users', icon:'user' },
+    { key: 'third', title: 'Users', icon:'user-plus' },
   ]);
 
   const { list } = route.params;

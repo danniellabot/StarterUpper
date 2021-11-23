@@ -10,16 +10,7 @@ export default function FriendStack({ navigation }) {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: 'grey',
-        },
-        headerTitle: '',
-        headerTintColor: 'black',
-        headerTitleStyle: {
-          fontFamily: `${Platform.OS === 'ios' ? 'HelveticaNeue' : 'Roboto'}`,
-          fontSize: 20,
-          fontStyle: 'normal',
-        },
+        headerShown: false,
       }}
     >
       <Stack.Screen name='FriendScreen' component={FriendScreen}

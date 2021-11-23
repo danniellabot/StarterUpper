@@ -63,9 +63,9 @@ const friendReceipt = [
 ];
 
 export default function FriendsSettings() {
-  const [keywords, setKeywords] = React.useState("");
-  const [suggestions, setSuggestions] = React.useState(friendList);
-  const [showFriends, setShowFriends] = React.useState(true);
+  const [keywords, setKeywords] = useState("");
+  const [suggestions, setSuggestions] = useState(friendList);
+  const [showFriends, setShowFriends] = useState(true);
 
   const onChangeText = (text) => {
     setKeywords(text);
@@ -195,6 +195,9 @@ export default function FriendsSettings() {
         onSubmitEditing={() => console.log(`User typed ${keywords}`)}
         value={keywords}
         platform={`${Platform.OS === "ios" ? "ios" : "android"}`}
+        containerStyle={{
+          backgroundColor: "transparent",
+        }}
       />
       {showFriends ? <Summary /> : <Suggestions />}
     </View>
