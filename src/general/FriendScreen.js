@@ -79,14 +79,19 @@ const OverlayContent = () => {
   };
 
   const onHandleSearch = () => {
+    if (keywords !== "") {
     console.log("searching for friends");
     const friendExists = potentialFriends.filter((friend) =>
       friend.username.toLowerCase().includes(keywords.toLowerCase())
     );
-    friendExists.length > 0
+    friendExists.length > 0 
       ? setMessage(`Your invite to ${keywords} has been sent`)
       : setMessage(`${keywords} is not a valid username`);
-  };
+  }
+  if (keywords === "") {
+    setMessage("Please enter a username");
+  }
+};
 
   // onPress Send Request, if username is not in potentialFriends, render text - 'Are you sure?'
 
