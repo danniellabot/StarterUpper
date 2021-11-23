@@ -67,31 +67,44 @@ const newFriendList = [
   { uid: "333", name: "Doritos" },
 ];
 
+const potentialFriends = [{ uid: "007", username: "Bond" }];
+
 const OverlayContent = () => {
   const [keywords, setKeywords] = useState("");
+  const [message, setMessage] = useState("");
 
   const onChangeText = (text) => {
     setKeywords(text);
     console.log("suggestedFriends", text);
   };
 
+  const onHandleSearch = () => {
+    console.log("searching for friends");
+    const friendExists = potentialFriends.filter((friend) =>
+      friend.username.toLowerCase().includes(keywords.toLowerCase())
+    );
+    friendExists.length > 0
+      ? setMessage(`Your invite to ${keywords} has been sent`)
+      : setMessage(`${keywords} is not a valid username`);
+  };
+
+  // onPress Send Request, if username is not in potentialFriends, render text - 'Are you sure?'
+
   return (
     <View
       style={{
         padding: 20,
-        // width: Dimensions.get("window").width * 0.8,
-        // height: Dimensions.get("window").height * 0.4,
       }}
     >
-      <Icon
+      {/* <Icon
         name="x"
         type="feather"
         // lift state up to parent
-        onPress={() => console.log("Hey")}
+        onPress={toggleOverlay}
         style={{
           alignItems: "flex-end",
         }}
-      />
+      /> */}
       <Text
         style={[
           styles.sectionTitle,
@@ -115,6 +128,7 @@ const OverlayContent = () => {
         placeholder="Username#0000"
         onChangeText={(val) => {
           onChangeText(val);
+          setMessage("");
         }}
         value={keywords}
         containerStyle={{
@@ -126,18 +140,21 @@ const OverlayContent = () => {
           borderRightWidth: 0,
         }}
       />
-
-      <Button
-        title="Send Request"
-        onPress={() => console.log("Hey")}
-        containerStyle={{
-          marginTop: 10,
-          backgroundColor: "transparent",
-          borderTopWidth: 0,
-          width: Dimensions.get("window").width * 0.65,
-          alignSelf: "center",
-        }}
-      />
+      {message === "" ? 
+        <Button
+          title="Send Request"
+          onPress={onHandleSearch}
+          containerStyle={{
+            marginTop: 10,
+            backgroundColor: "transparent",
+            borderTopWidth: 0,
+            width: Dimensions.get("window").width * 0.65,
+            alignSelf: "center",
+          }}
+        />
+       : 
+        <Text style={{ textAlign: "center", marginTop: 10 }}>{message}</Text>
+      }
     </View>
   );
 };
@@ -157,7 +174,7 @@ const OverlayBlocking = () => {
   );
 };
 
-export const FriendScreen = () => {
+export const FriendScreen = ({ navigation }) => {
   const [keywords, setKeywords] = useState("");
   const [suggestions, setSuggestions] = useState(friendList);
   const [showFriends, setShowFriends] = useState(true);
