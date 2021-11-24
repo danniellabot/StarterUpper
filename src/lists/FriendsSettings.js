@@ -16,6 +16,7 @@ import {
   ScrollView,
 } from "react-native";
 
+
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 
 const friendList = [
@@ -62,10 +63,13 @@ const friendReceipt = [
   { uid: "789", name: "Jane", amount: "30.00", status: "" },
 ];
 
+
 export default function FriendsSettings() {
+
   const [keywords, setKeywords] = useState("");
   const [suggestions, setSuggestions] = useState(friendList);
   const [showFriends, setShowFriends] = useState(true);
+
 
   const onChangeText = (text) => {
     setKeywords(text);

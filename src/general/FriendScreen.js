@@ -80,20 +80,18 @@ const OverlayContent = () => {
 
   const onHandleSearch = () => {
     if (keywords !== "") {
-    console.log("searching for friends");
-    const friendExists = potentialFriends.filter((friend) =>
-      friend.username.toLowerCase().includes(keywords.toLowerCase())
-    );
-    friendExists.length > 0 
-      ? setMessage(`Your invite to ${keywords} has been sent`)
-      : setMessage(`${keywords} is not a valid username`);
-  }
-  if (keywords === "") {
-    setMessage("Please enter a username");
-  }
-};
-
-  // onPress Send Request, if username is not in potentialFriends, render text - 'Are you sure?'
+      console.log("searching for friends");
+      const friendExists = potentialFriends.filter((friend) =>
+        friend.username.toLowerCase().includes(keywords.toLowerCase())
+      );
+      friendExists.length > 0
+        ? setMessage(`Your invite to ${keywords} has been sent`)
+        : setMessage(`${keywords} is not a valid username`);
+    }
+    if (keywords === "") {
+      setMessage("Please enter a username");
+    }
+  };
 
   return (
     <View
@@ -101,15 +99,6 @@ const OverlayContent = () => {
         padding: 20,
       }}
     >
-      {/* <Icon
-        name="x"
-        type="feather"
-        // lift state up to parent
-        onPress={toggleOverlay}
-        style={{
-          alignItems: "flex-end",
-        }}
-      /> */}
       <Text
         style={[
           styles.sectionTitle,
@@ -145,7 +134,7 @@ const OverlayContent = () => {
           borderRightWidth: 0,
         }}
       />
-      {message === "" ? 
+      {message === "" ? (
         <Button
           title="Send Request"
           onPress={onHandleSearch}
@@ -157,9 +146,9 @@ const OverlayContent = () => {
             alignSelf: "center",
           }}
         />
-       : 
+      ) : (
         <Text style={{ textAlign: "center", marginTop: 10 }}>{message}</Text>
-      }
+      )}
     </View>
   );
 };
@@ -302,6 +291,14 @@ export const FriendScreen = ({ navigation }) => {
         />
       </View>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+        <Icon
+          name="x"
+          type="feather"
+          onPress={toggleOverlay}
+          style={{
+            alignItems: "flex-end",
+          }}
+        />
         <OverlayContent />
       </Overlay>
       <SearchBar
