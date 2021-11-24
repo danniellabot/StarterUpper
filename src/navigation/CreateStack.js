@@ -9,17 +9,20 @@ export default function CreateStack({ navigation }) {
 
   return (
     <Stack.Navigator
+      // screenOptions={{
+      //   headerStyle: {
+      //     backgroundColor: 'green',
+      //   },
+      //   headerTitle: '',
+      //   headerTintColor: 'black',
+      //   headerTitleStyle: {
+      //     fontFamily: `${Platform.OS === 'ios' ? 'HelveticaNeue' : 'Roboto'}`,
+      //     fontSize: 20,
+      //     fontStyle: 'normal',
+      //   },
+      // }}
       screenOptions={{
-        headerStyle: {
-          backgroundColor: 'green',
-        },
-        headerTitle: '',
-        headerTintColor: 'black',
-        headerTitleStyle: {
-          fontFamily: `${Platform.OS === 'ios' ? 'HelveticaNeue' : 'Roboto'}`,
-          fontSize: 20,
-          fontStyle: 'normal',
-        },
+        headerShown: false,
       }}
     >
       <Stack.Screen name='CreateScreen' component={CreateScreen}
