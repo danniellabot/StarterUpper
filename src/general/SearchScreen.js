@@ -3,12 +3,20 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import {
+    NavigationContainer,
+    DarkTheme,
+    DefaultTheme,
+  } from "@react-navigation/native";
 import { ThemeContext } from '../navigation/RootNavigator';
 
 const SearchScreen = props => {
     const { setTheme, theme } = React.useContext(ThemeContext);
     //const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setTheme(theme === 'Light' ? 'Dark' : 'Light');
+
+  console.log('THEME', DarkTheme)
+  console.log('THEMELIGHT', DefaultTheme)
 
     return (
         <View style={styles.viewStyle}>

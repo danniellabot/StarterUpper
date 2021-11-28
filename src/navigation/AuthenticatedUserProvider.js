@@ -12,3 +12,5 @@ export const AuthenticatedUserProvider = ({ children }) => {
     </AuthenticatedUserContext.Provider>
   );
 };
+
+export const ThemeContext = React.createContext();

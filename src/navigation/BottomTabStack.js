@@ -7,6 +7,7 @@ import HomeStack from './HomeStack';
 import SearchStack from './SearchStack';
 import CreateStack from './CreateStack';
 import FriendStack from './FriendStack';
+import { Platform } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,8 +17,16 @@ export default function BottomTabStack() {
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,
-        "tabBarActiveTintColor": "blue",
+        "tabBarActiveTintColor": "#4A90E2",
         "tabBarInactiveTintColor": "gray",
+        "tabBarLabelStyle": {
+          "fontSize": 12,
+          "fontFamily": Platform.OS == "ios" ? "Helvetica" : "Roboto",
+          "fontWeight": "normal",
+          "fontStyle": "normal",
+          "letterSpacing": 0,
+          
+        },
         "tabBarStyle": [
           {
             "display": "flex"
@@ -30,7 +39,7 @@ export default function BottomTabStack() {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <Icon name="home" type="feather" color={color} size={26} />
+            <Icon name="home" type="feather" color={color} size={22} />
           ),
         }}
       />
@@ -38,7 +47,7 @@ export default function BottomTabStack() {
         options={{
           tabBarLabel: 'Search',
           tabBarIcon: ({ color }) => (
-            <Icon name="search" type="feather" color={color} size={26} />
+            <Icon name="search" type="feather" color={color} size={22} />
           ),
         }}
       />
@@ -46,7 +55,7 @@ export default function BottomTabStack() {
         options={{
           tabBarLabel: 'Friends',
           tabBarIcon: ({ color }) => (
-            <Icon name="users" type="feather" color={color} size={26} />
+            <Icon name="users" type="feather" color={color} size={22} />
           ),
         }}
       />
@@ -54,7 +63,7 @@ export default function BottomTabStack() {
         options={{
           tabBarLabel: 'Create',
           tabBarIcon: ({ color }) => (
-            <Icon name="file-plus" type="feather" color={color} size={26} />
+            <Icon name="file-plus" type="feather" color={color} size={22} />
           ),
         }}
       />

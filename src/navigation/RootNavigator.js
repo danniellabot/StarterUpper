@@ -5,13 +5,11 @@ import {
   DefaultTheme,
 } from "@react-navigation/native";
 import { View, ActivityIndicator } from "react-native";
-import { useColorScheme } from "react-native-appearance";
 import { auth } from "../config/firebase";
 import { AuthenticatedUserContext } from "./AuthenticatedUserProvider";
 import AuthStack from "./AuthStack";
-import HomeStack from "./HomeStack";
+
 import BottomTabStack from "./BottomTabStack";
-import DrawerStack from "./DrawerStack";
 
 export const ThemeContext = React.createContext();
 
