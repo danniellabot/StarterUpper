@@ -1,10 +1,15 @@
 // react functional component called SearchScreen render search bar and search button
 
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Switch } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import { ThemeContext } from '../navigation/RootNavigator';
 
 const SearchScreen = props => {
+    const { setTheme, theme } = React.useContext(ThemeContext);
+    //const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setTheme(theme === 'Light' ? 'Dark' : 'Light');
+
     return (
         <View style={styles.viewStyle}>
         <SearchBar
@@ -18,6 +23,13 @@ const SearchScreen = props => {
         <TouchableOpacity style={styles.buttonStyle} onPress={props.handleSubmit}>
             <Text style={styles.buttonText}>Search</Text>
         </TouchableOpacity>
+        <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={theme == "Light" ? "#f4f3f4" : "#f4f3f4"}
+            onValueChange={toggleSwitch}
+            value={theme == "Light" ? false : true}
+        />
+
         </View>
     );
     }
