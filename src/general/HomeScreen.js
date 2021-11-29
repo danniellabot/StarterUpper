@@ -37,16 +37,26 @@ export default function HomeScreen({ navigation }) {
   };
 
   const renderTabBar = (props) => (
+     
     <TabBar
       {...props}
       indicatorStyle={{ backgroundColor: "white", height: 4 }}
       style={{ backgroundColor: "#02D4B3" }}
-      labelStyle={{
-        fontSize: 16,
-        fontFamily: Platform.OS === "ios" ? "Helvetica" : "Roboto",
-        fontWeight: "bold",
-      }}
+     renderLabel={({ route, focused, color}) => (
+            <Text
+                style={{
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    fontFamily: Platform.OS === "ios" ? "Helvetica" : "Roboto",
+                    color: focused ? "#FFFFFF" : "#F0F0F0",
+                }}
+            >
+                {route.title}
+            </Text>
+        )}
+     
     />
+      
   );
 
   return (
@@ -57,6 +67,7 @@ export default function HomeScreen({ navigation }) {
       initialLayout={initialLayout}
       style={styles.container}
       renderTabBar={renderTabBar}
+      
     />
   );
 }

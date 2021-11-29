@@ -8,7 +8,6 @@ import { View, ActivityIndicator } from "react-native";
 import { auth } from "../config/firebase";
 import { AuthenticatedUserContext } from "./AuthenticatedUserProvider";
 import AuthStack from "./AuthStack";
-
 import BottomTabStack from "./BottomTabStack";
 
 export const ThemeContext = React.createContext();
@@ -18,6 +17,25 @@ export default function RootNavigator() {
   const [theme, setTheme] = useState("Light");
   const themeData = { theme, setTheme };
   const [isLoading, setIsLoading] = useState(true);
+
+// add to DefaultTheme
+  const defaultTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      listItemBackground: "#fff",
+    },
+  };
+
+  const darkTheme = {
+    ...DarkTheme,
+    colors: {
+      ...DarkTheme.colors,
+      listItemBackground: "#202020",
+    },
+  };
+
+
 
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
@@ -48,7 +66,7 @@ export default function RootNavigator() {
 
   return (
     <ThemeContext.Provider value={themeData}>
-      <NavigationContainer theme={theme == "Light" ? DefaultTheme : DarkTheme}>
+      <NavigationContainer theme={theme == "Light" ? defaultTheme : darkTheme}>
         {user ? <BottomTabStack /> : <AuthStack />}
         {/* {user ?
       <HomeStack>
