@@ -8,7 +8,7 @@ import {
   DarkTheme,
   DefaultTheme,
 } from "@react-navigation/native";
-import { ThemeContext } from "../navigation/RootNavigator";
+
 
 const SearchScreen = (props) => {
   // const { setTheme, theme } = React.useContext(ThemeContext);
