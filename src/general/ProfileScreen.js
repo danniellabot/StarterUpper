@@ -3,19 +3,12 @@
 // render avatar
 
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Switch
-} from "react-native";
+import { View, Text, StyleSheet, Switch, Button } from "react-native";
 import { Avatar, Icon, Badge } from "react-native-elements";
-import { ThemeContext } from "../navigation/RootNavigator";
+import { ThemeContext } from "../navigation/ThemeProvider";
 
 const ProfileScreen = ({ navigation }) => {
-  const { setTheme, theme } = React.useContext(ThemeContext);
-  //const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setTheme(theme === "Light" ? "Dark" : "Light");
+  const { toggleTheme, theme } = React.useContext(ThemeContext);
 
   return (
     <View style={styles.container}>
@@ -36,7 +29,7 @@ const ProfileScreen = ({ navigation }) => {
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
           thumbColor={theme == "Light" ? "#f4f3f4" : "#f4f3f4"}
-          onValueChange={toggleSwitch}
+          onValueChange={toggleTheme}
           value={theme == "Light" ? false : true}
         />
         <Text style={styles.bodyText}>Settings</Text>

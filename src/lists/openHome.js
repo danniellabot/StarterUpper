@@ -13,7 +13,7 @@ import { genConfig } from "react-nice-avatar";
 // import { bindActionCreators } from 'redux'
 // import { actionCreators } from '../state/index'
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
-import { ThemeContext } from "../navigation/RootNavigator";
+import { ThemeContext } from "../navigation/ThemeProvider";
 
 
 const openedList = [
