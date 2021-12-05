@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   },
   // get background colour from theme
   listItemContainer: {
-    borderRadius: 10,
+    borderRadius: 0,
   
     
   },

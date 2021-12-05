@@ -9,18 +9,9 @@ export default function SearchStack({ navigation }) {
 
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: 'pink',
-        },
-        headerTitle: 'Search',
-        headerTintColor: 'black',
-        headerTitleStyle: {
-          fontFamily: `${Platform.OS === 'ios' ? 'HelveticaNeue' : 'Roboto'}`,
-          fontSize: 20,
-          fontStyle: 'normal',
-        },
-      }}
+    screenOptions={{
+      headerShown: false,
+    }}
     >
       <Stack.Screen name='SearchScreen' component={SearchScreen}
       //  options={{

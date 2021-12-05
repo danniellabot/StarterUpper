@@ -1,73 +1,77 @@
 // react functional component called SearchScreen render search bar and search button
 
-import React from "react";
+import React, { useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from "react-native";
-import { SearchBar } from "react-native-elements";
+import { SearchBar, Icon, Button } from "react-native-elements";
 import {
   NavigationContainer,
   DarkTheme,
   DefaultTheme,
 } from "@react-navigation/native";
-import { ThemeContext } from "../navigation/RootNavigator";
 
 const SearchScreen = (props) => {
-  // const { setTheme, theme } = React.useContext(ThemeContext);
-  // //const [isEnabled, setIsEnabled] = useState(false);
-  // const toggleSwitch = () => setTheme(theme === "Light" ? "Dark" : "Light");
+  const [keywords, setKeywords] = useState("");
+ 
 
-  // console.log("THEME", DarkTheme);
-  // console.log("THEMELIGHT", DefaultTheme);
+  const onChangeText = (text) => {
+    setKeywords(text);
+    // const suggestedFriends = friendList.filter((friend) =>
+    //   friend.name.toLowerCase().includes(text.toLowerCase())
+    // );
+    // setSuggestions(suggestedFriends);
+  
+  };
+
+
 
   return (
-    <View style={styles.viewStyle}>
+    <View style={styles.container}>
+      <View
+        style={[
+          styles.suggestionSection,
+          {
+            height: 100,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+          },
+        ]}
+      >
+        <Text style={[styles.sectionTitle, { marginBottom: 10 }]}>
+          Search Items
+        </Text>
+       
+      </View>
       <SearchBar
-        placeholder="Search"
-        onChangeText={props.handleChange}
-        value={props.search}
-        onClear={props.handleClear}
-        lightTheme
-        round
+        placeholder=""
+        // onFocus={() => setShowFriends(false)}
+        // onBlur={() => setShowFriends(true)}
+        blurOnSubmit
+        onChangeText={(val) => {
+          onChangeText(val);
+        }}
+        onSubmitEditing={() => console.log(`User typed ${keywords}`)}
+        value={keywords}
+        platform={`${Platform.OS === "ios" ? "ios" : "android"}`}
       />
-      <TouchableOpacity style={styles.buttonStyle} onPress={props.handleSubmit}>
-        <Text style={styles.buttonText}>Search</Text>
-      </TouchableOpacity>
-      {/* <Switch
-        trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={theme == "Light" ? "#f4f3f4" : "#f4f3f4"}
-        onValueChange={toggleSwitch}
-        value={theme == "Light" ? false : true}
-      /> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  viewStyle: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 5,
-    padding: 10,
-    backgroundColor: "#fff",
+  container: {
+    flex: 1,
   },
-  buttonStyle: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 5,
-    padding: 10,
-    backgroundColor: "#fff",
+  suggestionSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  buttonText: {
+  sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#000",
+    marginTop: 10,
+    marginLeft: 16,
   },
 });
 
