@@ -7,7 +7,7 @@ import ListScreen from "../general/ListScreen";
 import ProfileScreen from "../general/ProfileScreen";
 import { DrawerActions } from "@react-navigation/routers";
 import { AuthenticatedUserContext } from "./AuthenticatedUserProvider";
-import { ThemeContext } from "../navigation/RootNavigator";
+import { ThemeContext } from "./ThemeProvider";
 
 const Stack = createStackNavigator();
 

@@ -1,28 +1,15 @@
 // react functional component called SearchScreen render search bar and search button
 
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from "react-native";
 import { SearchBar, Icon, Button } from "react-native-elements";
-import {
-  NavigationContainer,
-  DarkTheme,
-  DefaultTheme,
-} from "@react-navigation/native";
 
 const SearchScreen = (props) => {
   const [keywords, setKeywords] = useState("");
- 
 
   const onChangeText = (text) => {
     setKeywords(text);
-    // const suggestedFriends = friendList.filter((friend) =>
-    //   friend.name.toLowerCase().includes(text.toLowerCase())
-    // );
-    // setSuggestions(suggestedFriends);
-  
   };
-
-
 
   return (
     <View style={styles.container}>
@@ -40,7 +27,6 @@ const SearchScreen = (props) => {
         <Text style={[styles.sectionTitle, { marginBottom: 10 }]}>
           Search Items
         </Text>
-       
       </View>
       <SearchBar
         placeholder=""
