@@ -1,24 +1,78 @@
 // react functional component with two buttons and print console log of the button clicked
 
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, StyleSheet, Text, Image } from "react-native";
 import LottieView from "lottie-react-native";
 import { Button } from "react-native-elements";
+import * as ImagePicker from "expo-image-picker";
+import firebase from "firebase/app";
+import "firebase/storage";
+import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
+import { submitToMicrosoft2 } from "../config/analyseReceipt";
 
-export default class CreateScreen extends React.Component {
-  playAnimation = () => {
-    this.animation.play();
+const postImageToFirebase = async (uri, uid) => {
+  console.log("postImageToFirebase", uri);
+  const blobResponse = await fetch(uri);
+  const blob = await blobResponse.blob();
+  const metadata = {
+    contentType: "image/jpeg",
+  };
+  // get the last part of the uri
+
+  // const imageRef = firebase.storage().ref().child(`${uid}/${fileName}.jpg`);
+  const imageRef = firebase.storage().ref().child(`${uid}/receipt1.jpg`);
+  await imageRef.put(blob, metadata);
+  const url = await imageRef.getDownloadURL();
+  console.log("url 1111", url);
+  return url;
+};
+
+const CreateScreen = () => {
+  const [image, setImage] = React.useState(null);
+  const { user } = useContext(AuthenticatedUserContext);
+
+  const handleChooseImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [9, 16],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      const getUrl = await postImageToFirebase(result.uri, user.uid);
+      console.log("getUrl", getUrl);
+      const getResult = await submitToMicrosoft2(getUrl);
+      console.log("getResult", getResult);
+    }
   };
 
-  render() {
+  const RenderImage = () => {
     return (
-      // button should be below the animation
-      <View style={styles.container}>
-          <Text style={styles.sectionTitle}>Create a Receipt Item</Text>
+      <>
+        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        <Button
+          title="Choose a different image"
+          onPress={() => handleChooseImage()}
+        />
+        <Button title="Next" onPress={() => console.log("next")} />
+      </>
+    );
+  };
+
+  const HandleChoosePhoto = () => {
+    // playAnimation = () => {
+    //   this.animation.play();
+    // };
+    return (
+      <>
         <LottieView
-          ref={(animation) => {
-            this.animation = animation;
-          }}
+          // ref={(animation) => {
+          //   this.animation = animation;
+          // }}
           source={require("../../assets/create_light_mode.json")}
           autoPlay
           loop
@@ -31,7 +85,7 @@ export default class CreateScreen extends React.Component {
         />
         <Button
           title="Upload from Image Library"
-          onPress={() => console.log("Create")}
+          onPress={() => handleChooseImage()}
           buttonStyle={styles.button}
           titleStyle={styles.buttonTitle}
         />
@@ -46,10 +100,18 @@ export default class CreateScreen extends React.Component {
           ]}
           titleStyle={styles.buttonTitle}
         />
-      </View>
+      </>
     );
-  }
-}
+  };
+
+  return (
+    // button should be below the animation
+    <View style={styles.container}>
+      <Text style={styles.sectionTitle}>Create a Receipt Item</Text>
+      {image !== null ? <RenderImage /> : <HandleChoosePhoto />}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -81,3 +143,5 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
 });
+
+export default CreateScreen;
